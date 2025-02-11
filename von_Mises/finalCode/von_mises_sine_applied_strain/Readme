@@ -1,0 +1,17 @@
+This directory consists of three files.
+
+1) von_mises_sine_strain_increased_amplitude_dataset_preparation.ipynb
+
+    • This Jupyter Notebook is focused on generating a dataset for sine applied strain behavior with increasing amplitude using the Von Mises yield criterion. 
+    • Applied strain values, change in plastic strain values, total plastic strain values & hysterisis curves resulting from the von mises yield crieteria are plotted for visual assesment.
+
+2) von_Mises_Neural_Network_Implementation_cyclic_strain_increased_amplitude.ipynb
+
+    • This Jupyter Notebook is focused on training a neural network to predict the change in plastic strain values under cyclic loading with increasing amplitude. 
+    • The trained neural network along with the min_max_scaler are stored after training.
+
+3) von_mises_hysterisis_loops_cyclic_applied_strain_increased_amplitude.ipynb
+
+    • This Jupyter Notebook is focused on modeling hysteresis loops for cyclic applied strain with increasing amplitude using the Von Mises yield criterion and Neural Networks. 
+    • The min_max_scalers and trained neural network resulting from the file 2 is called here to predict the change in plastic strain values. 
+    • Hysterisis loops resulting from von mises yield criterion and neural network prediction are plotted against each other for accuracy assesment.
