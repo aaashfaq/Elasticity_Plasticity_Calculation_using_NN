@@ -1,0 +1,133 @@
+There are three files in this repository
+
+I) von_mises_cyclic_strain_increased_amplitude_dataset_preparation.ipynb
+
+This Jupyter Notebook is focused on generating a dataset for cyclic strain behavior with increasing amplitude using the Von Mises yield criterion. Applied strain values, change in plastic strain values, total plastic strain values & hysterisis curves resulting from the von mises yield crieteria are plotted for visual assesment.
+Below is a breakdown of its functionality:
+
+Key Functions and Steps:
+
+1. Imports and Setup
+    • Uses NumPy, Pandas, SciPy, TensorFlow, and Matplotlib.
+    • Ensures reproducibility by setting random seeds.
+2. Material Properties Definition
+    • Defines material constants:
+        ◦ E = 19,300 MPa (Young’s modulus) → Governs elasticity.
+        ◦ σ_y = 150 MPa (Yield stress) → Threshold for plastic deformation.
+        ◦ h = 100 (Isotropic hardening rate) → Governs material hardening.
+3. Cyclic Strain History Generation
+    • Generates a cyclic strain history over 3,900 time steps with:
+        1. Small incremental strain increases (elastic phase).
+        2. Alternating strain decreases and increases to induce cyclic behavior.
+        3. Randomized strain increments in later cycles to increase amplitude.
+        4. Final cycles introduce even larger strain variations, mimicking real-world material fatigue.
+4. Elastic and Plastic Behavior Calculation
+    • Implements Hooke’s Law (Elastic Predictor) to compute trial stress.
+    • Uses Von Mises Return Mapping Algorithm to determine:
+        ◦ If material remains elastic (Hooke’s law applies).
+        ◦ If material yields and deforms plastically, updating plastic strain and stress.
+5. Dataset Generation and Saving
+    • Generates a dataset containing:
+        ◦ Material properties (E, σ_y, h)
+        ◦ Strain history (including increasing amplitude)
+        ◦ Stress-strain relationships
+        ◦ Plastic strain evolution
+        ◦ Yield function values
+        ◦ 
+6. Training and Testing Dataset Preparation
+    • Creates three datasets:
+        ◦ Training set: Strain range (0.0001 - 0.0002) with 2,100 samples.
+        ◦ Test set 1: Strain range (0 - 0.0001) with 1,500 samples.
+        ◦ Test set 2: Strain range (0.0002 - 0.0004) with 1,500 samples.
+II) von_Mises_Neural_Network_Implementation_cyclic_strain_increased_amplitude.ipynb
+
+This Jupyter Notebook is focused on training a neural network to predict the change in plastic strain values under cyclic loading with increasing amplitude. The trained neural network along with the min_max_scaler are stored after training. Below is a breakdown of its key functions:
+
+1. Imports and Setup
+    • Uses NumPy, Pandas, SciPy, TensorFlow, and Matplotlib.
+    • Implements Latin Hypercube Sampling (LHS) to generate material property variations.
+    • Ensures reproducibility by setting random seeds.
+2. Material Properties and Strain History
+    • Defines ranges for material constants:
+        ◦ E (Young’s modulus): 191,000 MPa - 195,000 MPa.
+        ◦ σ_y (Yield stress): 90 MPa - 120 MPa.
+        ◦ h (Isotropic hardening rate): 5 - 10.
+    • Generates cyclic strain history (3,900 steps) with:
+        ◦ Small incremental strain increases (elastic phase).
+        ◦ Alternating strain decreases and increases (cyclic loading).
+        ◦ Increasing strain amplitude in later cycles to mimic material fatigue.
+3. Elastic and Plastic Behavior Calculation
+    • Implements Hooke’s Law (Elastic Predictor) to compute trial stress.
+    • Uses Von Mises Return Mapping Algorithm to determine:
+        ◦ If material remains elastic (Hooke’s law applies).
+        ◦ If material yields and deforms plastically, updating plastic strain and stress.
+4. Dataset Generation
+    • Generates a dataset with:
+        ◦ Material properties (E, σ_y, h)
+        ◦ Strain history with increasing amplitude
+        ◦ Stress-strain relationships
+        ◦ Plastic strain evolution
+        ◦ Yield function values
+5. Data Normalization
+    • Uses MinMax Scaling to normalize dataset values between 0 and 1 for neural network training.
+6. Neural Network Training
+    • Defines and trains a neural network using tensorflow.keras:
+        ◦ Sequential model with fully connected layers.
+        ◦ Uses ReLU activation functions for learning stress-strain relationships.
+        ◦ Implements Early Stopping to prevent overfitting.
+        ◦ Trains on strain-stress dataset.
+7. Visualization
+    • Plots training and validation loss to evaluate model performance.
+    • Compares predicted vs actual plastic strain values for accuracy.
+III) von_mises_hysterisis_loops_cyclic_applied_strain_increased_amplitude.ipynb
+
+This Jupyter Notebook is focused on modeling hysteresis loops for cyclic applied strain with increasing amplitude using the Von Mises yield criterion and Neural Networks. The min_max_scalers and trained neural network resulting from the file II is called here to predict the change in plastic strain values. Hysterisis loops resulting from von mises yield criterion and neural network prediction are plotted against each other for accuracy assesment. Below is an explanation of what it does:
+
+1. Imports and Setup
+    • Uses NumPy, Pandas, SciPy, TensorFlow, and Matplotlib.
+    • Implements Latin Hypercube Sampling (LHS) for generating material properties.
+    • Ensures reproducibility by setting random seeds.
+2. Material Properties and Strain History
+    • Defines material constants:
+        ◦ E = 192,000 MPa (Young’s modulus) – Governs elasticity.
+        ◦ σ_y = 110 MPa (Yield stress) – Defines the stress threshold for plastic deformation.
+        ◦ h = 7 (Isotropic hardening rate) – Governs material strengthening under cyclic loading.
+    • Generates cyclic strain history (3,900 steps) with:
+        ◦ Small incremental strain increases (elastic behavior).
+        ◦ Alternating positive and negative strain cycles (cyclic loading).
+        ◦ Gradually increasing strain amplitude in later cycles, mimicking material fatigue effects.
+3. Elastic and Plastic Behavior Calculation
+    • Implements Hooke’s Law (Elastic Predictor) to compute trial stress.
+    • Uses Von Mises Return Mapping Algorithm:
+        ◦ Determines if the material behaves elastically or plastically.
+        ◦ Updates plastic strain, stress values, and hardening parameters accordingly.
+4. Dataset Generation
+Generates a dataset containing:
+    • Material properties (E, σ_y, h)
+    • Strain and stress values
+    • Plastic strain evolution
+    • Hysteresis loop behavior
+
+5. Machine Learning and Visualization
+    • Trains a Neural Network to predict stress-strain behavior.
+    • Compares predicted vs actual plastic strain values for accuracy assessment.
+    • Uses Matplotlib to visualize hysteresis loops.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
